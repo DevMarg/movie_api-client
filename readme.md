@@ -17,9 +17,7 @@ A client-side application for the My Movie app built with React and Parcel.
 
 Install the required dependencies (Parcel, React, and ReactDOM) using npm:
 
-    `sh
-    npm install
-    `
+    `npm install`
 
 This command will read the package.json file and install all necessary packages listed under dependencies and devDependencies.
 
