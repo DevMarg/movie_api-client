@@ -1,16 +1,16 @@
-import { createRoot } from "react-dom/client";
 import React from "react";
+import { createRoot } from "react-dom/client";
+import { MainView } from "./components/main-view/main-view";
 import "./index.scss";
 
+
 const MyMovieApplication = () => {
-    return (
-        <div className="my-movie">
-            <div>Good day!</div>
-        </div>
-    );
+    return <MainView />;
 };
 
 const container = document.querySelector("#root");
 const root = createRoot(container);
 
 root.render(<MyMovieApplication />);
+
+console.log(MainView);
