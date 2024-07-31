@@ -18,19 +18,19 @@ export const MainView = () => {
 
         const moviesFromApi = movies.map((movie) => {
           return {
-            id: movie._id, // Unique identifier
-            ImageUrl: movie.ImageUrl, // Image URL for the movie
-            Title: movie.Title, // Movie title
-            Description: movie.Description, // Movie description
+            id: movie._id, 
+            ImageUrl: movie.ImageUrl, 
+            Title: movie.Title, 
+            Description: movie.Description, 
             Genre: {
-              Name: movie.Genre.Name, // Genre name
-              Description: movie.Genre.Description // Genre description
+              Name: movie.Genre.Name, 
+              Description: movie.Genre.Description 
             },
             Director: {
-              Name: movie.Director.Name, // Director name
-              Bio: movie.Director.Bio, // Director biography
-              Birthyear: movie.Director.Birthyear, // Director birth year
-              Deathyear: movie.Director.Deathyear // Director death year
+              Name: movie.Director.Name, 
+              Bio: movie.Director.Bio, 
+              Birthyear: movie.Director.Birthyear, 
+              Deathyear: movie.Director.Deathyear 
             }
           };
         });
