@@ -11,12 +11,17 @@ export const SignupView = () => {
 
         event.preventDefault();
 
+        const [year, month, day] = birthday.split("-");
+        const formattedBirthday = `${day}/${month}/${year}`;
+
         const data = {
             Username: username,
             Password: password,
             Email: email,
-            Birthday: birthday
+            Birthday: formattedBirthday
         }
+
+        console.log("Payload", data)
 
         fetch("https://movie-spot-a025d6d649af.herokuapp.com/users", {
             method: "POST",
@@ -29,9 +34,14 @@ export const SignupView = () => {
                 alert("Signup successful");
                 window.location.reload();
             } else {
-                alert("Signup failed");
+                return response.json().then((data) =>{
+                    alert("Signup failed:" + data.error.map(err => err.msg).join(', '));
+                })
             }
-        });
+        })
+        .catch((error) => {
+            console.error("Error:", error)
+        })
     };
   
     return (
