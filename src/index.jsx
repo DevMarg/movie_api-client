@@ -8,7 +8,7 @@ import "./index.scss";
 
 const MyMovieApplication = () => {
     return (
-        <Container>
+        <Container style={{ border: "1px solid black"}}>
             <MainView />
         </Container>
     );
