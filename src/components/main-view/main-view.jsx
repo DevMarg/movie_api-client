@@ -20,7 +20,11 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
 
-    fetch("https://movie-spot-a025d6d649af.herokuapp.com/movies", {
+    // Append a timestamp to the URL to prevent caching
+    const url = `https://movie-spot-a025d6d649af.herokuapp.com/movies?_=${Date.now()}`;
+
+
+    fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -60,7 +64,7 @@ export const MainView = () => {
         <LoginView
           onLoggedIn={(user, token) => {
             setUser(user);
-            setToken(token);
+            setToken(token);            
           }}
         />
         or
