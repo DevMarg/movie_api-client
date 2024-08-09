@@ -1,0 +1,18 @@
+.movie-card {
+    margin-top: 20px;  
+    margin-bottom: 20px; 
+    
+  }
+
+.movie-card-img {
+    height: 300px; 
+    object-fit: cover; 
+    width: 100%; 
+  }
+  .card-title, .card-text {
+    color: #fff; 
+  }
+  
+  .card-body {
+    background-color: #333; 
+  } 
