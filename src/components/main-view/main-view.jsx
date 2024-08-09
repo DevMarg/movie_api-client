@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { TopNavbar } from "../top-navbar/top-navbar";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import Row from "react-bootstrap/Row";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import "./main-view.scss";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -32,7 +34,7 @@ export const MainView = () => {
         console.log("Fetched data", movies);
 
         const moviesFromApi = movies.map((movie) => {
-          return {
+          return  {
             id: movie._id,
             ImageUrl: movie.ImageUrl,
             Title: movie.Title,
@@ -58,87 +60,57 @@ export const MainView = () => {
       });
   }, [token]);
 
-  // if (!user) {
-  //   return (
-  //     <>
-  //       <LoginView
-  //         onLoggedIn={(user, token) => {
-  //           setUser(user);
-  //           setToken(token);
-  //         }}
-  //       />
-  //       or
-  //       <SignupView />
-  //     </>
-  //   );
-  // }
-
-  // if (selectedMovie) {
-  //   return (
-  //     <MovieView
-  //       movie={selectedMovie}
-  //       onBackClick={() => setSelectedMovie(null)}
-  //     />
-  //   );
-  // }
-
-  // if (movies.length === 0) {
-  //   return <div>The list is empty</div>;
-  // }
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  };
 
   return (
-    <Row>
-      {!user ? (
-        <>
-          <LoginView onLoggedIn={(user, token) => {
-            setUser(user);
-            setToken(token);
-          }} 
-          />
-          or
-          <SignupView />
-        </>
-      ) : selectedMovie ? (
-        <MovieView
-          movie={selectedMovie}
-          onBackClick={() => setSelectedMovie(null)}
-        />
-      ) : movies.length === 0 ? (
-        <div>The list is empty</div>
-      ) : (
-        <>
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              onClick={(movie) => {
-                setSelectedMovie(movie);
-              }}
+    <>
+    <TopNavbar onLogout={handleLogout} />
+    <Container fluid className="gradient-bg text-white min-vh-100 page-container">
+      <Row className="justify-content-center">      
+        {!user ? (
+          <Col xs={12} sm={8} md={6} lg={4} className="mb-4">
+            <Row className="mb-4">
+              <LoginView
+                onLoggedIn={(user, token) => {
+                  setUser(user);
+                  setToken(token);
+                }}
+              />
+            </Row>
+            <Row>
+              <SignupView />
+            </Row>
+          </Col>
+        ) : selectedMovie ? (
+          <Col xs={12} md={8}>
+            <MovieView
+              movie={selectedMovie}
+              onBackClick={() => setSelectedMovie(null)}
             />
-          ))}
-        </>
-      )}
-    </Row>
-
-    // <div>
-    //   <button
-    //     onClick={() => {
-    //       setUser(null);
-    //       setToken(null);
-    //       localStorage.clear();
-    //     }}
-    //   >
-    //     Logout
-    //   </button>
-    //   {movies.map((movie) => (
-    //     <MovieCard
-    //       key={movie.id}
-    //       movie={movie}
-    //       onClick={(movie) => {
-    //         setSelectedMovie(movie);
-    //       }}
-    //     />
-    //   ))}
-    // </div>
+          </Col>
+        ) : movies.length === 0 ? (
+          <div>The list is empty</div>
+        ) : (
+          <>
+            {movies.map((movie) => (
+              <Col key={movie.id} md={3} className="mb-5">
+                <MovieCard
+                  movie={movie}
+                  onClick={(movie) => {
+                    setSelectedMovie(movie);
+                  }}
+                />
+              </Col>
+            ))}
+          </>
+        )}
+      </Row>
+    </Container>
+    </>
   );
 };
