@@ -1,8 +1,14 @@
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./movie-view.scss";
 import { Row, Col, Button } from "react-bootstrap";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies }) => {
+
+  const { movieId } = useParams();
+
+  const movie = movies.find((m) => m.id === movieId);
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -59,9 +65,9 @@ export const MovieView = ({ movie, onBackClick }) => {
         </Row>
 
         <div className="text-center mt-4">
-          <Button variant="primary" onClick={onBackClick}>
-            Back
-          </Button>
+        <Link to={`/`}>
+        <button className="back-button">Back</button>
+        </Link>
         </div>
       </div>
     </Col>
@@ -70,20 +76,22 @@ export const MovieView = ({ movie, onBackClick }) => {
 };
 
 MovieView.propTypes = {
-movie: PropTypes.shape({
-  ImageUrl: PropTypes.string,
-  Title: PropTypes.string.isRequired,
-  Description: PropTypes.string.isRequired,
-  Genre: PropTypes.shape({
-    Name: PropTypes.string.isRequired,
-    Description: PropTypes.string,
-  }).isRequired,
-  Director: PropTypes.shape({
-    Name: PropTypes.string.isRequired,
-    Bio: PropTypes.string.isRequired,
-    Birthyear: PropTypes.string.isRequired,
-    Deathyear: PropTypes.string.isRequired,
-  }).isRequired,
-}).isRequired,
-onBackClick: PropTypes.func.isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      ImageUrl: PropTypes.string,
+      Title: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Description: PropTypes.string,
+      }).isRequired,
+      Director: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        Birthyear: PropTypes.string,
+        Deathyear: PropTypes.string,
+      }).isRequired,
+    })
+  ).isRequired,
 };

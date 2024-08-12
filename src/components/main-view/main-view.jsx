@@ -5,6 +5,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import "./main-view.scss";
 
 export const MainView = () => {
@@ -23,18 +24,23 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
 
+    console.log("Fetching movies with token:", token);
+
     // Append a timestamp to the URL to prevent caching
     const url = `https://movie-spot-a025d6d649af.herokuapp.com/movies?_=${Date.now()}`;
 
     fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => response.json())
+    .then((response) => {
+      console.log("Response status:", response.status); 
+      return response.json();
+    })
       .then((movies) => {
         console.log("Fetched data", movies);
 
         const moviesFromApi = movies.map((movie) => {
-          return  {
+          return {
             id: movie._id,
             ImageUrl: movie.ImageUrl,
             Title: movie.Title,
@@ -69,48 +75,98 @@ export const MainView = () => {
 
   return (
     <>
-    <TopNavbar onLogout={handleLogout} />
-    <Container fluid className="gradient-bg text-white min-vh-100 page-container">
-      <Row className="justify-content-center">      
-        {!user ? (
-          <Col xs={12} sm={8} md={6} lg={4} className="mb-4">
-            <Row className="mb-4">
-              <LoginView
-                onLoggedIn={(user, token) => {
-                  setUser(user);
-                  setToken(token);
-                }}
+      <TopNavbar user={user} onLogout={handleLogout} />
+      <Container
+        fluid
+        className="gradient-bg text-white min-vh-100 page-container"
+      >        
+          <Row className="justify-content-center">
+            <Routes>
+              <Route
+                path="/signup"
+                element={
+                  <>
+                    {user ? (
+                      <Navigate to="/" />
+                    ) : (
+                      <Col md={5}>
+                        <SignupView />
+                        <Col md={12} className="text-center my-3">
+                        <span>
+                          <Link to="/login">Return to Login</Link>
+                        </span>
+                        </Col>
+                      </Col>
+                    )}
+                  </>
+                }
               />
-            </Row>
-            <Row>
-              <SignupView />
-            </Row>
-          </Col>
-        ) : selectedMovie ? (
-          <Col xs={12} md={8}>
-            <MovieView
-              movie={selectedMovie}
-              onBackClick={() => setSelectedMovie(null)}
-            />
-          </Col>
-        ) : movies.length === 0 ? (
-          <div>The list is empty</div>
-        ) : (
-          <>
-            {movies.map((movie) => (
-              <Col key={movie.id} md={3} className="mb-5">
-                <MovieCard
-                  movie={movie}
-                  onClick={(movie) => {
-                    setSelectedMovie(movie);
-                  }}
-                />
-              </Col>
-            ))}
-          </>
-        )}
-      </Row>
-    </Container>
+
+              <Route
+                path="/login"
+                element={
+                  <>
+                    {user ? (
+                      <Navigate to="/" />
+                    ) : (
+                      <Col md={5}>
+                        <LoginView
+                         onLoggedIn={(user, token) => {
+                          setUser(user);
+                          setToken(token);
+                         }} 
+                          />
+                          <Col md={12} className="text-center my-3">
+                          <span>
+                            <Link to="/signup">Click here to Signup</Link>
+                          </span>
+                          </Col>
+                      </Col>
+                    )}
+                  </>
+                }
+              />
+
+              <Route
+                path="/movies/:movieId"
+                element={
+                  <>
+                    {!user ? (
+                      <Navigate to="/login" replace />
+                    ) : movies.length === 0 ? (
+                      <Col>The list is empty</Col>
+                    ) : (
+                      <Col md={8}>
+                        <MovieView movies={movies} />
+                      </Col>
+                    )}
+                  </>
+                }
+              />
+
+              <Route
+                path="/"
+                element={
+                  <>
+                    {!user ? (
+                      <Navigate to="/login" replace />
+                    ) : movies.length === 0 ? (
+                      <Col>The list is empty</Col>
+                    ) : (
+                      <>
+                        {movies.map((movie) => (
+                          <Col className="mb-4" key={movie.id} md={3}>
+                            <MovieCard movie={movie} />
+                          </Col>
+                        ))}
+                      </>
+                    )}
+                  </>
+                }
+              />
+            </Routes>
+          </Row>        
+      </Container>
     </>
   );
 };

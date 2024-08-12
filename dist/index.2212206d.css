@@ -37,6 +37,10 @@
   padding: 50px;
 }
 
+.top-navbar {
+  margin-bottom: 0;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

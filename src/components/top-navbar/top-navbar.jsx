@@ -2,7 +2,7 @@ import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom"; 
 import "./top-navbar.scss"
 
-export const TopNavbar = ({ onLogout }) => {
+export const TopNavbar = ({ user, onLogout }) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-0">
       <Container>
@@ -11,14 +11,20 @@ export const TopNavbar = ({ onLogout }) => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml">
+          <Nav className="ml-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/about">About</Nav.Link>
-            <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+            {user ? (
+              <>
+                <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+                <Nav.Link as={Link} to="/" onClick={onLogout}>Logout</Nav.Link>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
+              </>
+            )}
           </Nav>
-          <Button variant="light" onClick={onLogout} className="ml-3">
-            Logout
-          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
