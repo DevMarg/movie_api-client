@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./movie-card.scss";
 
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, onFavoriteToggle }) => {
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={movie.ImageUrl} className="movie-card-img"/>
@@ -13,6 +13,9 @@ export const MovieCard = ({ movie }) => {
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
           <Button variant="link">Open</Button>
         </Link>
+        <Button variant="primary" onClick={onFavoriteToggle}>
+          {movie.isFavorite ? "Unfavorite" : "Favorite"}
+        </Button>
       </Card.Body>
     </Card>
   );
