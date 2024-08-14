@@ -27781,7 +27781,8 @@ const MainView = ()=>{
                                                                 className: "carousel-item-container",
                                                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                                     movie: movie,
-                                                                    onFavoriteToggle: handleFavoriteToggle
+                                                                    isFavorite: user.FavoriteMovies.includes(movie.id),
+                                                                    onFavoriteToggle: handleFavoriteToggle(movie.id)
                                                                 }, void 0, false, {
                                                                     fileName: "src/components/main-view/main-view.jsx",
                                                                     lineNumber: 282,

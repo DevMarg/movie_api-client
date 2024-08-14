@@ -281,7 +281,8 @@ export const MainView = () => {
                                 <div className="carousel-item-container" key={movie.id}>
                                   <MovieCard
                                     movie={movie}
-                                    onFavoriteToggle={handleFavoriteToggle}
+                                    isFavorite={user.FavoriteMovies.includes(movie.id)}
+                                    onFavoriteToggle={handleFavoriteToggle(movie.id)}
                                   />
                                 </div>
                               ))}
