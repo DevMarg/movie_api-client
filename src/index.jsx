@@ -3,19 +3,18 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MainView } from "./components/main-view/main-view";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Container from "react-bootstrap/Container";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./index.scss";
 
 const MyMovieApplication = () => {
   return (
     <Router>
-      <Container>
-        <MainView />
-      </Container>
+      <ToastContainer /> 
+      <MainView />
     </Router>
   );
 };
-
 const container = document.querySelector("#root");
 const root = createRoot(container);
 

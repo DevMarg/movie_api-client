@@ -1,89 +1,127 @@
+import React from "react";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { MovieCard } from "../movie-card/movie-card";
 import "./movie-view.scss";
-import { Row, Col, Button } from "react-bootstrap";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies, similarMovies, onFavoriteToggle }) => {
+  const { movieId } = useParams();
+  const movie = movies.find((m) => m.id === movieId);
+
+  if (!movie) return <div>Movie not found!</div>;
+
+  const similarMoviesList = similarMovies(movie);
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options)
-  }
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   return (
-    <Row className="justify-content-md-center">
-    <Col md={8}>
-      <div className="movie-view">
-        <div className="movie-poster mb-4">
-          <img src={movie.ImageUrl} alt={movie.Title} className="w-100" />
-        </div>
+    <Container className="movie-view mt-4">
+      <Row>
+        <Col md={4}>
+          <img
+            className="movie-poster img-fluid"
+            src={movie.ImageUrl}
+            alt={`${movie.Title} poster`}
+          />
+        </Col>
+        <Col md={8}>
+          <div className="movie-details">
+            <h2>{movie.Title}</h2>
+            <p>{movie.Description}</p>
+            <p>
+              <strong>Genre:</strong> {movie.Genre.Name}
+            </p>
+            <p>
+              <strong>Director:</strong> {movie.Director.Name}
+            </p>
+            <p>
+              <strong>Bio:</strong> {movie.Director.Bio}
+            </p>
+            <p>
+              <strong>Born:</strong> {formatDate(movie.Director.Birthyear)}
+            </p>
+            <p>
+              <strong>Died:</strong>{" "}
+              {movie.Director.Deathyear
+                ? formatDate(movie.Director.Deathyear)
+                : "N/A"}
+            </p>
 
-        <Row>
-          <Col md={6}>
-            <div className="mb-2">
-              <h5>Title:</h5>
-              <p>{movie.Title}</p>
-            </div>
+            <Row className="mt-3">
+              <Col>
+                <Button
+                  onClick={() => onFavoriteToggle(movie.id)}
+                  variant={movie.isFavorite ? "danger" : "outline-primary"}
+                  className="w-100"
+                >
+                  {movie.isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                </Button>
+              </Col>
+            </Row>
 
-            <div className="mb-2">
-              <h5>Description:</h5>
-              <p>{movie.Description}</p>
-            </div>
+            <Row className="mt-2">
+              <Col>
+                <Link to={`/`}>
+                  <Button variant="outline-secondary" className="w-100">
+                    Back
+                  </Button>
+                </Link>
+              </Col>
+            </Row>  
 
-            <div className="mb-2">
-              <h5>Genre:</h5>
-              <p>{movie.Genre.Name}</p>
-            </div>
 
-            <div className="mb-2">
-              <h5>Director:</h5>
-              <p>{movie.Director.Name}</p>
-            </div>
+          </div>
+        </Col>
+      </Row>      
+
+      <Row className="similar-movies mt-5">
+        <Col>
+          <h4>Similar Movies</h4>
+        </Col>
+      </Row>
+      <Row>
+        {similarMoviesList.length > 0 ? (
+          similarMoviesList.map((similarMovie) => (
+            <Col md={3} key={similarMovie.id}>
+              <MovieCard
+                movie={similarMovie}
+                isFavorite={similarMovie.isFavorite}
+                onFavoriteToggle={() => onFavoriteToggle(similarMovie.id)}
+              />
+            </Col>
+          ))
+        ) : (
+          <Col>
+            <p>No similar movies found.</p>
           </Col>
-
-          <Col md={6}>
-            <div className="mb-2">
-              <h5>Bio:</h5>
-              <p>{movie.Director.Bio}</p>
-            </div>
-
-            <div className="mb-2">
-              <h5>Born:</h5>
-              <p>{formatDate(movie.Director.Birthyear)}</p>
-            </div>
-
-            <div className="mb-2">
-              <h5>Died:</h5>
-              <p>{movie.Director.Deathyear ? formatDate(movie.Director.Deathyear) : "N/A"}</p>
-            </div>
-          </Col>
-        </Row>
-
-        <div className="text-center mt-4">
-          <Button variant="primary" onClick={onBackClick}>
-            Back
-          </Button>
-        </div>
-      </div>
-    </Col>
-  </Row>
-);
+        )}
+      </Row>
+    </Container>
+  );
 };
 
 MovieView.propTypes = {
-movie: PropTypes.shape({
-  ImageUrl: PropTypes.string,
-  Title: PropTypes.string.isRequired,
-  Description: PropTypes.string.isRequired,
-  Genre: PropTypes.shape({
-    Name: PropTypes.string.isRequired,
-    Description: PropTypes.string,
-  }).isRequired,
-  Director: PropTypes.shape({
-    Name: PropTypes.string.isRequired,
-    Bio: PropTypes.string.isRequired,
-    Birthyear: PropTypes.string.isRequired,
-    Deathyear: PropTypes.string.isRequired,
-  }).isRequired,
-}).isRequired,
-onBackClick: PropTypes.func.isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      ImageUrl: PropTypes.string,
+      Title: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Description: PropTypes.string,
+      }).isRequired,
+      Director: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        Birthyear: PropTypes.string,
+        Deathyear: PropTypes.string,
+      }).isRequired,
+    })
+  ).isRequired,
 };
