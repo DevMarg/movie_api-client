@@ -72,9 +72,8 @@ export const MainView = () => {
 
   const handleFavoriteToggle = (movieId) => {
     const url = `https://movie-spot-a025d6d649af.herokuapp.com/users/${user.Username}/movies/${movieId}`;
-    const method = user.FavoriteMovies.some((fav) => fav === movieId)
-      ? "DELETE"
-      : "PATCH";
+    const isFavorite = user.FavoriteMovies.includes(movieId);
+    const method = isFavorite ? "DELETE" : "PATCH";      
 
     fetch(url, {
       method: method,
@@ -85,10 +84,9 @@ export const MainView = () => {
     })
       .then((response) => {
         if (response.ok) {
-          const updatedFavorites =
-            method === "PATCH"
-              ? [...user.FavoriteMovies, movieId]
-              : user.FavoriteMovies.filter((id) => id !== movieId);
+          const updatedFavorites = isFavorite
+                ? user.FavoriteMovies.filter((id) => id !== movieId)
+                : [...user.FavoriteMovies, movieId];
 
           const updatedUser = { ...user, FavoriteMovies: updatedFavorites };
           setUser(updatedUser);
