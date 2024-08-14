@@ -72,9 +72,9 @@ export const MainView = () => {
 
   const handleFavoriteToggle = (movieId) => {
     const url = `https://movie-spot-a025d6d649af.herokuapp.com/users/${user.Username}/movies/${movieId}`;
-    const isFavorite = user.FavoriteMovies.includes(movieId);
-    const method = isFavorite ? "DELETE" : "PATCH";      
-
+    const method = user.FavoriteMovies.some((fav) => fav === movieId)
+      ? "DELETE"
+      : "PATCH";
     fetch(url, {
       method: method,
       headers: {
@@ -84,10 +84,10 @@ export const MainView = () => {
     })
       .then((response) => {
         if (response.ok) {
-          const updatedFavorites = isFavorite
-                ? user.FavoriteMovies.filter((id) => id !== movieId)
-                : [...user.FavoriteMovies, movieId];
-
+          const updatedFavorites =
+            method === "PATCH"
+              ? [...user.FavoriteMovies, movieId]
+              : user.FavoriteMovies.filter((id) => id !== movieId);
           const updatedUser = { ...user, FavoriteMovies: updatedFavorites };
           setUser(updatedUser);
           localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -269,18 +269,22 @@ export const MainView = () => {
                   ) : movies.length === 0 ? (
                     <Col>The list is empty</Col>
                   ) : (
-
                     <Col md={12}>
                       <Carousel className="movie-carousel" interval={null}>
                         {movieSlides.map((slideMovies, slideIndex) => (
                           <Carousel.Item key={slideIndex}>
                             <div className="carousel-slide">
-                              {slideMovies.map(movie => (
-                                <div className="carousel-item-container" key={movie.id}>
+                              {slideMovies.map((movie) => (
+                                <div
+                                  className="carousel-item-container"
+                                  key={movie.id}
+                                >
                                   <MovieCard
                                     movie={movie}
-                                    isFavorite={user.FavoriteMovies.includes(movie.id)}
-                                    onFavoriteToggle={handleFavoriteToggle(movie.id)}
+                                    isFavorite={user.FavoriteMovies.includes(
+                                      movie.id
+                                    )}
+                                    onFavoriteToggle={() => handleFavoriteToggle(movie.id)}
                                   />
                                 </div>
                               ))}
