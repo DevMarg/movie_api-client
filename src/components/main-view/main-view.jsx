@@ -5,9 +5,9 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import ProfileView from "../profile-view/profile-view";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Carousel } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import "./main-view.scss";
 
 export const MainView = () => {
@@ -65,87 +65,89 @@ export const MainView = () => {
   const getSimilarMovies = (currentMovie) => {
     return movies.filter(
       (movie) =>
-        movie.Genre.Name === currentMovie.Genre.Name && movie.id !== currentMovie.id
+        movie.Genre.Name === currentMovie.Genre.Name &&
+        movie.id !== currentMovie.id
     );
   };
 
   const handleFavoriteToggle = (movieId) => {
     const url = `https://movie-spot-a025d6d649af.herokuapp.com/users/${user.Username}/movies/${movieId}`;
     const method = user.FavoriteMovies.some((fav) => fav === movieId)
-      ? 'DELETE'
-      : 'PATCH';
+      ? "DELETE"
+      : "PATCH";
 
     fetch(url, {
       method: method,
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
         if (response.ok) {
-          const updatedFavorites = method === 'PATCH'
-            ? [...user.FavoriteMovies, movieId]
-            : user.FavoriteMovies.filter((id) => id !== movieId);
+          const updatedFavorites =
+            method === "PATCH"
+              ? [...user.FavoriteMovies, movieId]
+              : user.FavoriteMovies.filter((id) => id !== movieId);
 
           const updatedUser = { ...user, FavoriteMovies: updatedFavorites };
           setUser(updatedUser);
           localStorage.setItem("user", JSON.stringify(updatedUser));
-          toast.success('Favorite status updated successfully');
+          toast.success("Favorite status updated successfully");
         } else {
-          throw new Error('Failed to update favorite movies');
+          throw new Error("Failed to update favorite movies");
         }
       })
       .catch((error) => {
-        console.error('Error updating favorite movies:', error);
-        toast.error('An error occurred while updating favorites');
+        console.error("Error updating favorite movies:", error);
+        toast.error("An error occurred while updating favorites");
       });
   };
 
   const handleUpdate = (updatedUser) => {
     fetch(`https://movie-spot-a025d6d649af.herokuapp.com/users/${user._id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updatedUser),
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to update user');
-      }
-      return response.json();
-    })
-    .then(updatedUser => {
-      setUser(updatedUser);
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-    })
-    .catch(error => {
-      console.error('Error updating user:', error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update user");
+        }
+        return response.json();
+      })
+      .then((updatedUser) => {
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+      });
   };
 
   const handleDelete = () => {
     fetch(`https://movie-spot-a025d6d649af.herokuapp.com/users/${user._id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to delete account');
-      }
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      setUser(null);
-      setToken(null);
-      window.location.href = '/login'; 
-    })
-    .catch(error => {
-      console.error('Error deleting account:', error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete account");
+        }
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        setUser(null);
+        setToken(null);
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error("Error deleting account:", error);
+      });
   };
 
   const handleLogout = () => {
@@ -154,6 +156,12 @@ export const MainView = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
   };
+
+  const movieSlides = movies.reduce((acc, movie, index) => {
+    if (index % 3 === 0) acc.push([]); // Start a new slide every 3 items
+    acc[acc.length - 1].push(movie);
+    return acc;
+  }, []);
 
   return (
     <>
@@ -220,10 +228,12 @@ export const MainView = () => {
                   ) : (
                     <Col md={8}>
                       <MovieView
-                       movies={movies} 
-                       similarMovies={(currentMovie) => getSimilarMovies(currentMovie)}
-                       onFavoriteToggle={handleFavoriteToggle}
-                       />
+                        movies={movies}
+                        similarMovies={(currentMovie) =>
+                          getSimilarMovies(currentMovie)
+                        }
+                        onFavoriteToggle={handleFavoriteToggle}
+                      />
                     </Col>
                   )}
                 </>
@@ -241,7 +251,7 @@ export const MainView = () => {
                       <ProfileView
                         user={user}
                         token={token}
-                        movies={movies}  
+                        movies={movies}
                         onFavoriteToggle={handleFavoriteToggle}
                         onUpdate={handleUpdate}
                         onDelete={handleDelete}
@@ -261,17 +271,25 @@ export const MainView = () => {
                   ) : movies.length === 0 ? (
                     <Col>The list is empty</Col>
                   ) : (
-                    <>
-                      {movies.map((movie) => (
-                        <Col className="mb-4" key={movie.id} md={3}>
-                          <MovieCard 
-                            movie={movie}
-                            isFavorite={user.FavoriteMovies.includes(movie.id)} // Check if it's a favorite
-                            onFavoriteToggle={() => handleFavoriteToggle(movie.id)}
-                          />
-                        </Col>
-                      ))}
-                    </>
+
+                    <Col md={12}>
+                      <Carousel className="movie-carousel" interval={null}>
+                        {movieSlides.map((slideMovies, slideIndex) => (
+                          <Carousel.Item key={slideIndex}>
+                            <div className="carousel-slide">
+                              {slideMovies.map(movie => (
+                                <div className="carousel-item-container" key={movie.id}>
+                                  <MovieCard
+                                    movie={movie}
+                                    onFavoriteToggle={handleFavoriteToggle}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </Carousel.Item>
+                        ))}
+                      </Carousel>
+                    </Col>
                   )}
                 </>
               }

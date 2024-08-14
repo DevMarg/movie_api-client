@@ -3,8 +3,9 @@
 }
 
 .movie-card {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: 75%;
+  margin: auto;
+  padding: 10px;
 }
 
 .movie-card-img {
@@ -21,12 +22,51 @@
   background-color: #333;
 }
 
-.back-button {
-  color: #f5f5f5;
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 12px;
+.movie-carousel, .carousel-item {
+  flex-direction: row;
+  display: flex;
+}
+
+@media only screen and (width >= 768px) {
+  .carousel-slide {
+    align-items: flex-center;
+    flex-direction: row;
+    align-content: center;
+    width: 100%;
+    display: flex;
+  }
+
+  .carousel-item-container {
+    flex: 1 0 30%;
+  }
+
+  .carousel-control-prev {
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  .carousel-control-next {
+    position: absolute;
+    transform: translateX(50%);
+  }
+}
+
+@media only screen and (width <= 700px) {
+  .movie-card {
+    width: 70%;
+    margin: auto;
+    padding: 0;
+  }
+
+  .carousel-slide {
+    flex-direction: column;
+    gap: 20px;
+    display: flex;
+  }
+
+  .movie-card-img {
+    height: 200px;
+  }
 }
 
 .gradient-bg {
