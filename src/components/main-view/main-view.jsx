@@ -241,7 +241,7 @@ export const MainView = () => {
                       <ProfileView
                         user={user}
                         token={token}
-                        movies={movies}  // Pass movies to ProfileView
+                        movies={movies}  
                         onFavoriteToggle={handleFavoriteToggle}
                         onUpdate={handleUpdate}
                         onDelete={handleDelete}
