@@ -1,18 +1,72 @@
 .movie-card {
-    margin-top: 20px;  
-    margin-bottom: 20px; 
-    
-  }
+  margin: auto;
+  width: 75%;  
+  padding: 10px;
+}
 
 .movie-card-img {
-    height: 300px; 
-    object-fit: cover; 
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+}
+.card-title,
+.card-text {
+  color: #fff;
+}
+
+.card-body {
+  background-color: #333;
+}
+
+.movie-carousel {
+  display: flex;
+  flex-direction: row;
+}
+
+.carousel-item {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (min-width: 768px) {
+  .carousel-slide {
+    display: flex;
+    flex-direction: row;   
+    align-items: flex-center; 
+    align-content: center;
     width: 100%; 
   }
-  .card-title, .card-text {
-    color: #fff; 
+
+  .carousel-item-container {
+    flex: 1 0 30%; // Each card takes approximately 30% of the slide width
   }
-  
-  .card-body {
-    background-color: #333; 
-  } 
+
+  .carousel-control-prev {
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+
+  .carousel-control-next {
+    position: absolute;
+    transform: translateX(+50%);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .movie-card {
+    margin: auto;
+    width: 70%;     
+    padding: 0px;
+  }
+
+  .carousel-slide{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }  
+
+  .movie-card-img{
+    height: 200px;
+  }
+}
