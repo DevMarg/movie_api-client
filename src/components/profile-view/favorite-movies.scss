@@ -1,0 +1,31 @@
+.favorite-movies-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.favorite-movies-title {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .favorite-movies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .favorite-movie-card {
+    background-color: #343a40;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .favorite-movie-card .card-title {
+    color: #fff;
+  }
+  
+  .favorite-movie-card .card-body {
+    background-color: #495057;
+  }
