@@ -286,7 +286,7 @@ export const MainView = () => {
                                     isFavorite={user.FavoriteMovies.includes(
                                       movie.id
                                     )}
-                                    onFavoriteToggle={() => handleFavoriteToggle(movie.id)}
+                                    onFavoriteToggle={() => handleFavoriteToggle(movie.id)}                                    
                                   />
                                 </div>
                               ))}
