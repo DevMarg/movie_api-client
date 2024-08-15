@@ -67,7 +67,7 @@ const ProfileView = ({ user, token, movies, onUpdate, onDelete }) => {
       <Row className="justify-content-center">
         <Col md={6}>
           <h2>User Profile</h2>
-          <UpdateUser user={user} token={token} onUpdate={onUpdate} />
+          <UpdateUser user={user} token={token} onUpdate={onUpdate}/>
           <DeleteAccount user={user} token={token} onDelete={onDelete} />
         </Col>        
       </Row>
