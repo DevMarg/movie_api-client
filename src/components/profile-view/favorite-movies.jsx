@@ -9,20 +9,20 @@ const FavoriteMovies = ({ movies = [], favoriteMovies = [], handleFavoriteToggle
   const favoriteMovieList = movies.filter(movie => favoriteMovieIds.includes(movie.id));
 
   return (
-    <Container>
+    <Container className="favorite-movies-container">
       <Row className="justify-content-md-center mt-5">
         <Col className="text-center">
-          <h2>Favorite Movies</h2>
+          <h2 className="favorite-movies-title">Favorite Movies</h2>
         </Col>
       </Row>
-      <Row className="justify-content-md-center mt-5">
+      <Row className="favorite-movies-grid justify-content-md-center mt-5">
         {favoriteMovieList.length === 0 ? (
           <Col>
             <p>No favorite movies found.</p>
           </Col>
         ) : (
           favoriteMovieList.map((movie) => (
-            <Col className="mb-5" key={movie.id} xs={12} md={6} lg={3}>
+            <Col className="mb-5 favorite-movie-card" key={movie.id} xs={12} md={6} lg={3}>
               <MovieCard
                 movie={movie}
                 isFavorite={true}

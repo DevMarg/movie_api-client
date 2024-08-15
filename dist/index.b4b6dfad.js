@@ -44226,12 +44226,14 @@ const FavoriteMovies = ({ movies = [], favoriteMovies = [], handleFavoriteToggle
     const favoriteMovieIds = favoriteMovies.map((favMovie)=>favMovie.id);
     const favoriteMovieList = movies.filter((movie)=>favoriteMovieIds.includes(movie.id));
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+        className: "favorite-movies-container",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 className: "justify-content-md-center mt-5",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                     className: "text-center",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        className: "favorite-movies-title",
                         children: "Favorite Movies"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/favorite-movies.jsx",
@@ -44249,7 +44251,7 @@ const FavoriteMovies = ({ movies = [], favoriteMovies = [], handleFavoriteToggle
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                className: "justify-content-md-center mt-5",
+                className: "favorite-movies-grid justify-content-md-center mt-5",
                 children: favoriteMovieList.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                         children: "No favorite movies found."
@@ -44263,7 +44265,7 @@ const FavoriteMovies = ({ movies = [], favoriteMovies = [], handleFavoriteToggle
                     lineNumber: 20,
                     columnNumber: 11
                 }, undefined) : favoriteMovieList.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        className: "mb-5",
+                        className: "mb-5 favorite-movie-card",
                         xs: 12,
                         md: 6,
                         lg: 3,
