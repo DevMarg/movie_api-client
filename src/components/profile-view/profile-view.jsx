@@ -64,13 +64,15 @@ const ProfileView = ({ user, token, movies, onUpdate, onDelete }) => {
 
   return (
     <Container>
-      <Row>
+      <Row className="justify-content-center">
         <Col md={6}>
           <h2>User Profile</h2>
           <UpdateUser user={user} token={token} onUpdate={onUpdate} />
           <DeleteAccount user={user} token={token} onDelete={onDelete} />
-        </Col>
-        <Col md={6}>          
+        </Col>        
+      </Row>
+      <Row className="justify-content-center">
+      <Col md={6}>          
           <FavoriteMovies
             movies={movies}
             favoriteMovies={favoriteMovies}
