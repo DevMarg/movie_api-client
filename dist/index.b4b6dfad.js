@@ -27701,7 +27701,8 @@ const MainView = ()=>{
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
                                             movies: movies,
                                             similarMovies: (currentMovie)=>getSimilarMovies(currentMovie),
-                                            onFavoriteToggle: handleFavoriteToggle
+                                            onFavoriteToggle: (movieId)=>handleFavoriteToggle(movieId),
+                                            isFavorite: (movieId)=>user.FavoriteMovies.includes(movieId)
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
                                             lineNumber: 228,
@@ -27726,7 +27727,7 @@ const MainView = ()=>{
                                         replace: true
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 246,
+                                        lineNumber: 247,
                                         columnNumber: 21
                                     }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 12,
@@ -27734,23 +27735,24 @@ const MainView = ()=>{
                                             user: user,
                                             token: token,
                                             movies: movies,
-                                            onFavoriteToggle: handleFavoriteToggle,
+                                            onFavoriteToggle: (movieId)=>handleFavoriteToggle(movieId),
+                                            isFavorite: (movieId)=>user.FavoriteMovies.includes(movieId),
                                             onUpdate: handleUpdate,
                                             onDelete: handleDelete
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 249,
+                                            lineNumber: 250,
                                             columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 248,
+                                        lineNumber: 249,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false)
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 241,
+                                lineNumber: 242,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27761,13 +27763,13 @@ const MainView = ()=>{
                                         replace: true
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 268,
+                                        lineNumber: 270,
                                         columnNumber: 21
                                     }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         children: "The list is empty"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 270,
+                                        lineNumber: 272,
                                         columnNumber: 21
                                     }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 12,
@@ -27785,38 +27787,38 @@ const MainView = ()=>{
                                                                     onFavoriteToggle: ()=>handleFavoriteToggle(movie.id)
                                                                 }, void 0, false, {
                                                                     fileName: "src/components/main-view/main-view.jsx",
-                                                                    lineNumber: 282,
+                                                                    lineNumber: 284,
                                                                     columnNumber: 35
                                                                 }, void 0)
                                                             }, movie.id, false, {
                                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                                lineNumber: 278,
+                                                                lineNumber: 280,
                                                                 columnNumber: 33
                                                             }, void 0))
                                                     }, void 0, false, {
                                                         fileName: "src/components/main-view/main-view.jsx",
-                                                        lineNumber: 276,
+                                                        lineNumber: 278,
                                                         columnNumber: 29
                                                     }, void 0)
                                                 }, slideIndex, false, {
                                                     fileName: "src/components/main-view/main-view.jsx",
-                                                    lineNumber: 275,
+                                                    lineNumber: 277,
                                                     columnNumber: 27
                                                 }, void 0))
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 273,
+                                            lineNumber: 275,
                                             columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 272,
+                                        lineNumber: 274,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false)
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 263,
+                                lineNumber: 265,
                                 columnNumber: 13
                             }, undefined)
                         ]

@@ -230,7 +230,8 @@ export const MainView = () => {
                         similarMovies={(currentMovie) =>
                           getSimilarMovies(currentMovie)
                         }
-                        onFavoriteToggle={handleFavoriteToggle}
+                        onFavoriteToggle={(movieId) => handleFavoriteToggle(movieId)}
+                        isFavorite={(movieId) => user.FavoriteMovies.includes(movieId)}
                       />
                     </Col>
                   )}
@@ -250,7 +251,8 @@ export const MainView = () => {
                         user={user}
                         token={token}
                         movies={movies}
-                        onFavoriteToggle={handleFavoriteToggle}
+                        onFavoriteToggle={(movieId) => handleFavoriteToggle(movieId)}
+                        isFavorite={(movieId) => user.FavoriteMovies.includes(movieId)}
                         onUpdate={handleUpdate}
                         onDelete={handleDelete}
                       />
