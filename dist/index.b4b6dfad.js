@@ -27484,8 +27484,7 @@ const MainView = ()=>{
     };
     const handleFavoriteToggle = (movieId)=>{
         const url = `https://movie-spot-a025d6d649af.herokuapp.com/users/${user.Username}/movies/${movieId}`;
-        const isFavorite = user.FavoriteMovies.includes(movieId);
-        const method = isFavorite ? "DELETE" : "PATCH";
+        const method = user.FavoriteMovies.some((fav)=>fav === movieId) ? "DELETE" : "PATCH";
         fetch(url, {
             method: method,
             headers: {
@@ -27494,10 +27493,10 @@ const MainView = ()=>{
             }
         }).then((response)=>{
             if (response.ok) {
-                const updatedFavorites = isFavorite ? user.FavoriteMovies.filter((id)=>id !== movieId) : [
+                const updatedFavorites = method === "PATCH" ? [
                     ...user.FavoriteMovies,
                     movieId
-                ];
+                ] : user.FavoriteMovies.filter((id)=>id !== movieId);
                 const updatedUser = {
                     ...user,
                     FavoriteMovies: updatedFavorites
@@ -27783,35 +27782,35 @@ const MainView = ()=>{
                                                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                                     movie: movie,
                                                                     isFavorite: user.FavoriteMovies.includes(movie.id),
-                                                                    onFavoriteToggle: handleFavoriteToggle(movie.id)
+                                                                    onFavoriteToggle: ()=>handleFavoriteToggle(movie.id)
                                                                 }, void 0, false, {
                                                                     fileName: "src/components/main-view/main-view.jsx",
-                                                                    lineNumber: 280,
+                                                                    lineNumber: 282,
                                                                     columnNumber: 35
                                                                 }, void 0)
                                                             }, movie.id, false, {
                                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                                lineNumber: 279,
+                                                                lineNumber: 278,
                                                                 columnNumber: 33
                                                             }, void 0))
                                                     }, void 0, false, {
                                                         fileName: "src/components/main-view/main-view.jsx",
-                                                        lineNumber: 277,
+                                                        lineNumber: 276,
                                                         columnNumber: 29
                                                     }, void 0)
                                                 }, slideIndex, false, {
                                                     fileName: "src/components/main-view/main-view.jsx",
-                                                    lineNumber: 276,
+                                                    lineNumber: 275,
                                                     columnNumber: 27
                                                 }, void 0))
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 274,
+                                            lineNumber: 273,
                                             columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 273,
+                                        lineNumber: 272,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false)
