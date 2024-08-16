@@ -77,9 +77,9 @@ export const MovieView = ({ movies, similarMovies, onFavoriteToggle }) => {
         </Col>
       </Row>
 
-      <Row className="similar-movies mt-5">
+      <Row className="similar-movies mt-5 mb-5">
         <Col>
-          <h4>Similar Movies</h4>
+          <h4 className="text-center">Similar Movies</h4>
         </Col>
       </Row>
       <Row>
