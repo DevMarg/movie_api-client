@@ -91,6 +91,15 @@ export const MainView = () => {
           const updatedUser = { ...user, FavoriteMovies: updatedFavorites };
           setUser(updatedUser);
           localStorage.setItem("user", JSON.stringify(updatedUser));
+
+          
+          const updatedMovies = movies.map((movie) =>
+            movie.id === movieId
+              ? { ...movie, isFavorite: method === "PATCH" }
+              : movie
+          );
+          setMovies(updatedMovies);
+
           toast.success("Favorite status updated successfully");
         } else {
           throw new Error("Failed to update favorite movies");
@@ -230,8 +239,12 @@ export const MainView = () => {
                         similarMovies={(currentMovie) =>
                           getSimilarMovies(currentMovie)
                         }
-                        onFavoriteToggle={(movieId) => handleFavoriteToggle(movieId)}
-                        isFavorite={(movieId) => user.FavoriteMovies.includes(movieId)}
+                        onFavoriteToggle={(movieId) =>
+                          handleFavoriteToggle(movieId)
+                        }
+                        isFavorite={(movieId) =>
+                          user.FavoriteMovies.includes(movieId)
+                        }
                       />
                     </Col>
                   )}
@@ -246,13 +259,17 @@ export const MainView = () => {
                   {!user ? (
                     <Navigate to="/login" replace />
                   ) : (
-                    <Col md={12}>
+                    <Col md={8}>
                       <ProfileView
                         user={user}
                         token={token}
                         movies={movies}
-                        onFavoriteToggle={(movieId) => handleFavoriteToggle(movieId)}
-                        isFavorite={(movieId) => user.FavoriteMovies.includes(movieId)}
+                        onFavoriteToggle={(movieId) =>
+                          handleFavoriteToggle(movieId)
+                        }
+                        isFavorite={(movieId) =>
+                          user.FavoriteMovies.includes(movieId)
+                        }
                         onUpdate={handleUpdate}
                         onDelete={handleDelete}
                       />
@@ -272,7 +289,7 @@ export const MainView = () => {
                     <Col>The list is empty</Col>
                   ) : (
                     <Col md={12}>
-                      <Carousel className="movie-carousel" interval={null}>
+                      <Carousel className="movie-carousel no-indicators" interval={null}>
                         {movieSlides.map((slideMovies, slideIndex) => (
                           <Carousel.Item key={slideIndex}>
                             <div className="carousel-slide">
@@ -286,7 +303,9 @@ export const MainView = () => {
                                     isFavorite={user.FavoriteMovies.includes(
                                       movie.id
                                     )}
-                                    onFavoriteToggle={() => handleFavoriteToggle(movie.id)}
+                                    onFavoriteToggle={() =>
+                                      handleFavoriteToggle(movie.id)
+                                    }
                                   />
                                 </div>
                               ))}

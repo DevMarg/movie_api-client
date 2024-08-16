@@ -62,7 +62,7 @@ export const MovieView = ({ movies, similarMovies, onFavoriteToggle }) => {
                   {movie.isFavorite ? "Remove from Favorites" : "Add to Favorites"}
                 </Button>
               </Col>
-            </Row>
+            </Row>            
 
             <Row className="mt-2">
               <Col>
@@ -72,16 +72,14 @@ export const MovieView = ({ movies, similarMovies, onFavoriteToggle }) => {
                   </Button>
                 </Link>
               </Col>
-            </Row>  
-
-
+            </Row>
           </div>
         </Col>
-      </Row>      
+      </Row>
 
-      <Row className="similar-movies mt-5">
+      <Row className="similar-movies mt-5 mb-5">
         <Col>
-          <h4>Similar Movies</h4>
+          <h4 className="text-center">Similar Movies</h4>
         </Col>
       </Row>
       <Row>
