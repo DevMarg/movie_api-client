@@ -11,18 +11,18 @@ const FavoriteMovies = ({ movies = [], favoriteMovies = [], handleFavoriteToggle
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
-        <Col className="text-center">
+        <Col className="text-center mb-5">
           <h2>Favorite Movies</h2>
         </Col>
       </Row>
-      <Row className="justify-content-md-center mt-5">
+      <Row md={10} className="d-flex flex-column align-items-center ">
         {favoriteMovieList.length === 0 ? (
           <Col>
             <p>No favorite movies found.</p>
           </Col>
         ) : (
           favoriteMovieList.map((movie) => (
-            <Col className="mb-5" key={movie.id} xs={12} md={6} lg={3}>
+            <Col xs={12} sm={6} md={6} lg={12} className="mb-5" key={movie.id} >
               <MovieCard
                 movie={movie}
                 isFavorite={true}

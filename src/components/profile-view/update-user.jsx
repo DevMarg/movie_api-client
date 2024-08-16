@@ -106,7 +106,7 @@ const UpdateUser = ({ user, token, onUpdate }) => {
           onChange={(e) => setBirthday(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className="justify-content-center mb-4 mt-4">
         Update
       </Button>
     </Form>

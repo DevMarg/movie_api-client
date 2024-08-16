@@ -1,0 +1,26 @@
+.heart-button {
+    background: none;
+    border: none;
+    font-size: 24px; 
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease-in-out;
+    height: 50px;
+  
+    &:hover {
+      transform: scale(1.5);
+    }
+  
+    &:focus {
+      outline: none;
+    }
+
+    &.liked {
+        color: red;
+      }
+    
+      &:not(.liked) {
+        color: gray;
+      }
+  }
+  

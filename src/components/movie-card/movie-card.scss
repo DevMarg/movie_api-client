@@ -1,26 +1,40 @@
 .movie-card {
   margin: auto;
-  width: 75%;  
-  padding: 10px;
+  width: 75%;    
 }
 
-.movie-card-img {
-  height: 300px;
-  object-fit: cover;
-  width: 100%;
+.movie-card-img {  
+  object-fit: contain;
+  object-position: center; 
 }
+
+// .movie-card-img {  
+//   width: 100%;   /* Make sure the image takes the full width of the container */
+//   height: 300px; /* Set a fixed height for all images */
+//   object-fit: contain; /* Ensure the image covers the container, cropping if needed */
+//   object-position: center; /* Center the image within the container */
+// }
+
 .card-title,
 .card-text {
-  color: #fff;
+  color: black;
 }
 
-.card-body {
-  background-color: #333;
+.no-underline {
+  text-decoration: none;
+}
+
+.card-footer {
+  height: 100px;
 }
 
 .movie-carousel {
   display: flex;
   flex-direction: row;
+}
+
+.no-indicators .carousel-indicators {
+  display: none;
 }
 
 .carousel-item {
@@ -31,21 +45,20 @@
 @media only screen and (min-width: 768px) {
   .carousel-slide {
     display: flex;
-    flex-direction: row;   
-    align-items: flex-center; 
+    flex-direction: row;
+    align-items: flex-center;
     align-content: center;
-    width: 100%; 
+    width: 100%;
   }
 
   .carousel-item-container {
-    flex: 1 0 30%; // Each card takes approximately 30% of the slide width
+    flex: 1 0 30%; // Each card takes approximately 30% of the slide width    
   }
 
   .carousel-control-prev {
     position: absolute;
     transform: translateX(-50%);
   }
-
 
   .carousel-control-next {
     position: absolute;
@@ -56,17 +69,16 @@
 @media only screen and (max-width: 700px) {
   .movie-card {
     margin: auto;
-    width: 70%;     
-    padding: 0px;
+    width: 70%;    
   }
 
-  .carousel-slide{
+  .carousel-slide {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }  
+  }
 
-  .movie-card-img{
+  .movie-card-img {
     height: 200px;
   }
 }

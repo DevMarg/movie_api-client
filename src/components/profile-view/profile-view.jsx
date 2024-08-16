@@ -5,6 +5,7 @@ import UpdateUser from './update-user';
 import DeleteAccount from './delete-account';
 import { toast } from 'react-toastify';
 
+
 const ProfileView = ({ user, token, movies, onUpdate, onDelete }) => {
   const [favoriteMovies, setFavoriteMovies] = useState([]);
 
@@ -63,15 +64,16 @@ const ProfileView = ({ user, token, movies, onUpdate, onDelete }) => {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col md={6}>
+    <Container className="profile-view-container container-md">
+      <Row className="justify-content-center mb-4">
+        <Col md={8} className="user-profile">
           <h2>User Profile</h2>
-          <UpdateUser user={user} token={token} onUpdate={onUpdate} />
+          <UpdateUser user={user} token={token} onUpdate={onUpdate}/>
           <DeleteAccount user={user} token={token} onDelete={onDelete} />
-        </Col>
-        <Col md={6}>
-          <h2>Favorite Movies</h2>
+        </Col>        
+      </Row>
+      <Row className="justify-content-center">
+      <Col md={6} className="favorite-movies-section">          
           <FavoriteMovies
             movies={movies}
             favoriteMovies={favoriteMovies}
