@@ -1,7 +1,7 @@
 .movie-card {
   margin: auto;
   width: 75%;  
-  padding: 10px;
+  // padding: 10px;
 }
 
 .movie-card-img {
@@ -9,18 +9,27 @@
   object-fit: cover;
   width: 100%;
 }
+
 .card-title,
 .card-text {
-  color: #fff;
+  color: black;
 }
 
-.card-body {
-  background-color: #333;
+.no-underline {
+  text-decoration: none;
+}
+
+.card-footer {
+  height: 100px;
 }
 
 .movie-carousel {
   display: flex;
   flex-direction: row;
+}
+
+.no-indicators .carousel-indicators {
+  display: none;
 }
 
 .carousel-item {
@@ -31,10 +40,10 @@
 @media only screen and (min-width: 768px) {
   .carousel-slide {
     display: flex;
-    flex-direction: row;   
-    align-items: flex-center; 
+    flex-direction: row;
+    align-items: flex-center;
     align-content: center;
-    width: 100%; 
+    width: 100%;
   }
 
   .carousel-item-container {
@@ -46,7 +55,6 @@
     transform: translateX(-50%);
   }
 
-
   .carousel-control-next {
     position: absolute;
     transform: translateX(+50%);
@@ -56,17 +64,17 @@
 @media only screen and (max-width: 700px) {
   .movie-card {
     margin: auto;
-    width: 70%;     
+    width: 70%;
     padding: 0px;
   }
 
-  .carousel-slide{
+  .carousel-slide {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }  
+  }
 
-  .movie-card-img{
+  .movie-card-img {
     height: 200px;
   }
 }

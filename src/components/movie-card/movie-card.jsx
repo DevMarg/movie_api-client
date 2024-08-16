@@ -15,7 +15,7 @@ export const MovieCard = ({ movie, onFavoriteToggle }) => {
       setIsLiked(isFavorite);
     }, [isFavorite]);
 
-    const handleLike = () => {
+    const handleLike = () => {      
       onFavoriteToggle();  
       setIsLiked(!isLiked);
     };
@@ -35,19 +35,36 @@ export const MovieCard = ({ movie, onFavoriteToggle }) => {
 
   return (
     <Card className="h-100 movie-card">
+      <Link to={`/movies/${encodeURIComponent(movie.id)}`} className="no-underline">
       <Card.Img variant="top" src={movie.ImageUrl} className="movie-card-img" />
       <Card.Body className="d-flex flex-column align-items-center">
-        <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>{movie.Director.Name}</Card.Text>
-        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-          <Button variant="link">Open</Button>
-        </Link>
-        <HeartButton
+        <Card.Title style={{ height: '25px' }}>{movie.Title}</Card.Title>        
+      </Card.Body>
+      </Link>
+      <Card.Footer className="card-footer d-flex justify-content-center align-items-center">
+      <HeartButton
+          className="d-flex justify-content-center align-items-center"
           isFavorite={movie.isFavorite}
           onFavoriteToggle={() => onFavoriteToggle(movie.id)} 
         />
-      </Card.Body>
+        </Card.Footer>      
     </Card>
+    
+    // <Card className="h-100 movie-card">
+    //   <Card.Img variant="top" src={movie.ImageUrl} className="movie-card-img" />
+    //   <Card.Body className="d-flex flex-column align-items-center">
+    //     <Card.Title>{movie.Title}</Card.Title>
+    //     <Card.Text>{movie.Director.Name}</Card.Text>
+    //     <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+    //       <Button variant="link">Open</Button>
+    //     </Link>
+    //     <HeartButton
+    //       isFavorite={movie.isFavorite}
+    //       onFavoriteToggle={() => onFavoriteToggle(movie.id)} 
+    //     />
+    //   </Card.Body>      
+    // </Card>
+    
   );
 };
 

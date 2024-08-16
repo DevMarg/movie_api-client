@@ -5,7 +5,6 @@
 .movie-card {
   width: 75%;
   margin: auto;
-  padding: 10px;
 }
 
 .movie-card-img {
@@ -15,14 +14,27 @@
 }
 
 .card-title, .card-text {
-  color: #fff;
+  color: #000;
 }
 
-.card-body {
-  background-color: #333;
+.no-underline {
+  text-decoration: none;
 }
 
-.movie-carousel, .carousel-item {
+.card-footer {
+  height: 100px;
+}
+
+.movie-carousel {
+  flex-direction: row;
+  display: flex;
+}
+
+.no-indicators .carousel-indicators {
+  display: none;
+}
+
+.carousel-item {
   flex-direction: row;
   display: flex;
 }
@@ -73,6 +85,7 @@
   cursor: pointer;
   background: none;
   border: none;
+  height: 50px;
   padding: 5px;
   font-size: 24px;
   transition: transform .2s ease-in-out;

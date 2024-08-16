@@ -4,7 +4,7 @@ import FavoriteMovies from './favorite-movies';
 import UpdateUser from './update-user';
 import DeleteAccount from './delete-account';
 import { toast } from 'react-toastify';
-// import "./profile-view.scss";
+
 
 const ProfileView = ({ user, token, movies, onUpdate, onDelete }) => {
   const [favoriteMovies, setFavoriteMovies] = useState([]);

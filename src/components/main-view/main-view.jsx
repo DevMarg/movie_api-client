@@ -259,7 +259,7 @@ export const MainView = () => {
                   {!user ? (
                     <Navigate to="/login" replace />
                   ) : (
-                    <Col md={12}>
+                    <Col md={8}>
                       <ProfileView
                         user={user}
                         token={token}
@@ -289,7 +289,7 @@ export const MainView = () => {
                     <Col>The list is empty</Col>
                   ) : (
                     <Col md={12}>
-                      <Carousel className="movie-carousel" interval={null}>
+                      <Carousel className="movie-carousel no-indicators" interval={null}>
                         {movieSlides.map((slideMovies, slideIndex) => (
                           <Carousel.Item key={slideIndex}>
                             <div className="carousel-slide">
