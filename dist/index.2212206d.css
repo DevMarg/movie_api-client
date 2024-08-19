@@ -102,7 +102,7 @@
 }
 
 .heart-button:not(.liked) {
-  color: gray;
+  color: #c2c3c3;
 }
 
 .gradient-bg {
