@@ -64,7 +64,7 @@
 
 @media only screen and (width <= 700px) {
   .movie-card {
-    width: 70%;
+    width: 100%;
     margin: auto;
   }
 
@@ -75,7 +75,7 @@
   }
 
   .movie-card-img {
-    height: 200px;
+    max-height: 500px;
   }
 }
 

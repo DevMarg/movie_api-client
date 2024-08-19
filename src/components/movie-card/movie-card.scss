@@ -57,12 +57,14 @@
     position: absolute;
     transform: translateX(+50%);
   }
+
+  
 }
 
 @media only screen and (max-width: 700px) {
   .movie-card {
     margin: auto;
-    width: 70%;    
+    width: 100%;    
   }
 
   .carousel-slide {
@@ -72,6 +74,6 @@
   }
 
   .movie-card-img {
-    height: 200px;
+    max-height: 500px;
   }
 }

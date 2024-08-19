@@ -73,7 +73,7 @@ const ProfileView = ({ user, token, movies, onUpdate, onDelete }) => {
         </Col>        
       </Row>
       <Row className="justify-content-center">
-      <Col md={6} className="favorite-movies-section">          
+      <Col mb={6} className="favorite-movies-section">          
           <FavoriteMovies
             movies={movies}
             favoriteMovies={favoriteMovies}

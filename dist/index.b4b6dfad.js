@@ -43341,7 +43341,7 @@ const ProfileView = ({ user, token, movies, onUpdate, onDelete })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 className: "justify-content-center",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                    md: 6,
+                    mb: 6,
                     className: "favorite-movies-section",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
                         movies: movies,
@@ -44297,10 +44297,6 @@ const FavoriteMovies = ({ movies = [], favoriteMovies = [], handleFavoriteToggle
                     lineNumber: 20,
                     columnNumber: 11
                 }, undefined) : favoriteMovieList.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        xs: 12,
-                        sm: 6,
-                        md: 6,
-                        lg: 12,
                         className: "mb-5",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie,

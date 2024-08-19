@@ -22,7 +22,7 @@ const FavoriteMovies = ({ movies = [], favoriteMovies = [], handleFavoriteToggle
           </Col>
         ) : (
           favoriteMovieList.map((movie) => (
-            <Col xs={12} sm={6} md={6} lg={12} className="mb-5" key={movie.id} >
+            <Col  className="mb-5" key={movie.id} >
               <MovieCard
                 movie={movie}
                 isFavorite={true}
