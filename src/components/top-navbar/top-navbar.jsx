@@ -4,7 +4,7 @@ import "./top-navbar.scss"
 
 export const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery }) => {
   return (
-    <Navbar bg="dark" variant="dark" >
+    <Navbar bg="dark" variant="dark" expand="lg">
     <Container>
       <Navbar.Brand as={Link} to="/" className="mr-auto">
         MovieSpot
@@ -33,9 +33,9 @@ export const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery }) => {
             className="me-2"
             value={searchQuery}
             onChange={(e) => {
-    console.log("Search query changed:", e.target.value);
-    setSearchQuery(e.target.value);
-  }}
+              console.log("Search query changed:", e.target.value);
+              setSearchQuery(e.target.value);
+            }}
           />
           <Button variant="outline-light">Search</Button>
         </Form>
