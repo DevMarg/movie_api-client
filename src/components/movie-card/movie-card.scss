@@ -1,6 +1,8 @@
 .movie-card {
   margin: auto;
-  width: 75%;    
+  width: 100%;
+  max-width: 300px; /* Adjust the value based on your layout */
+  max-height: 600px;  
 }
 
 .movie-card-img {  
@@ -34,7 +36,7 @@
   display: flex;
   flex-direction: row;
 }
-
+//// Styles for screens 758 px wide or bigger
 @media only screen and (min-width: 768px) {
   .carousel-slide {
     display: flex;
@@ -61,6 +63,7 @@
   
 }
 
+// Styles for screens 700px wide or smaller
 @media only screen and (max-width: 700px) {
   .movie-card {
     margin: auto;

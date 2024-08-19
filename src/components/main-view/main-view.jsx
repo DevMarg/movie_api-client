@@ -18,6 +18,8 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState(movies);
 
   useEffect(() => {
     if (!token) return;
@@ -61,6 +63,20 @@ export const MainView = () => {
         console.error("Error fetching data:", error);
       });
   }, [token]);
+
+  useEffect(() => {
+    console.log("Current search query:", searchQuery);
+    console.log("Current movies:", movies);
+
+    if (movies.length > 0) {
+      setFilteredMovies(
+        movies.filter((movie) =>
+          movie.Title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    }
+  }, [searchQuery, movies]);
+
 
   const getSimilarMovies = (currentMovie) => {
     return movies.filter(
@@ -164,15 +180,17 @@ export const MainView = () => {
     localStorage.removeItem("token");
   };
 
-  const movieSlides = movies.reduce((acc, movie, index) => {
-    if (index % 3 === 0) acc.push([]); // Start a new slide every 3 items
-    acc[acc.length - 1].push(movie);
-    return acc;
-  }, []);
+  const movieSlides = (moviesArray) => {
+    return moviesArray.reduce((acc, movie, index) => {
+      if (index % 3 === 0) acc.push([]); // Start a new slide every 3 items
+      acc[acc.length - 1].push(movie);
+      return acc;
+    }, []);
+  };
 
   return (
     <>
-      <TopNavbar user={user} onLogout={handleLogout} />
+      <TopNavbar user={user} onLogout={handleLogout} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       <Container
         fluid
         className="gradient-bg text-white min-vh-100 page-container"
@@ -290,7 +308,7 @@ export const MainView = () => {
                   ) : (
                     <Col md={12}>
                       <Carousel className="movie-carousel no-indicators" interval={null}>
-                        {movieSlides.map((slideMovies, slideIndex) => (
+                        {movieSlides(filteredMovies).map((slideMovies, slideIndex) => (
                           <Carousel.Item key={slideIndex}>
                             <div className="carousel-slide">
                               {slideMovies.map((movie) => (

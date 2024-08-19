@@ -3,7 +3,9 @@
 }
 
 .movie-card {
-  width: 75%;
+  width: 100%;
+  max-width: 300px;
+  max-height: 600px;
   margin: auto;
 }
 
@@ -111,10 +113,6 @@
 
 .page-container {
   padding-top: 100px;
-}
-
-.top-navbar {
-  margin-bottom: 0;
 }
 
 :root {
