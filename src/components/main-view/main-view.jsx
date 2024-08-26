@@ -20,6 +20,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredMovies, setFilteredMovies] = useState(movies);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
     if (!token) return;
@@ -69,11 +70,11 @@ export const MainView = () => {
     console.log("Current movies:", movies);
 
     if (movies.length > 0) {
-      setFilteredMovies(
-        movies.filter((movie) =>
-          movie.Title.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+      const results = movies.filter((movie) =>
+        movie.Title.toLowerCase().includes(searchQuery.toLowerCase())
       );
+      setFilteredMovies(results);
+      setNoResults(results.length === 0); // Update noResults state
     }
   }, [searchQuery, movies]);
 
@@ -297,40 +298,47 @@ export const MainView = () => {
               }
             />
 
-            <Route
+<Route
               path="/"
               element={
                 <>
                   {!user ? (
                     <Navigate to="/login" replace />
-                  ) : movies.length === 0 ? (
-                    <Col>Loading</Col>
                   ) : (
                     <Col md={12}>
-                      <Carousel className="movie-carousel no-indicators" interval={null}>
-                        {movieSlides(filteredMovies).map((slideMovies, slideIndex) => (
-                          <Carousel.Item key={slideIndex}>
-                            <div className="carousel-slide">
-                              {slideMovies.map((movie) => (
-                                <div
-                                  className="carousel-item-container"
-                                  key={movie.id}
-                                >
-                                  <MovieCard
-                                    movie={movie}
-                                    isFavorite={user.FavoriteMovies.includes(
-                                      movie.id
-                                    )}
-                                    onFavoriteToggle={() =>
-                                      handleFavoriteToggle(movie.id)
-                                    }
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                          </Carousel.Item>
-                        ))}
-                      </Carousel>
+                      {noResults ? (
+                        <div className="text-center mt-5">
+                          <h4>No results found for "{searchQuery}".</h4>
+                          <p>Please try a different search query.</p>
+                        </div>
+                      ) : filteredMovies.length === 0 ? (
+                        <Col>Loading</Col>
+                      ) : (
+                        <Carousel className="movie-carousel no-indicators" interval={null}>
+                          {movieSlides(filteredMovies).map((slideMovies, slideIndex) => (
+                            <Carousel.Item key={slideIndex}>
+                              <div className="carousel-slide">
+                                {slideMovies.map((movie) => (
+                                  <div
+                                    className="carousel-item-container"
+                                    key={movie.id}
+                                  >
+                                    <MovieCard
+                                      movie={movie}
+                                      isFavorite={user.FavoriteMovies.includes(
+                                        movie.id
+                                      )}
+                                      onFavoriteToggle={() =>
+                                        handleFavoriteToggle(movie.id)
+                                      }
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            </Carousel.Item>
+                          ))}
+                        </Carousel>
+                      )}
                     </Col>
                   )}
                 </>
