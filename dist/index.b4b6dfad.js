@@ -43836,6 +43836,11 @@ const UpdateUser = ({ user, token, onUpdate })=>{
     const [birthday, setBirthday] = (0, _react.useState)(user.Birthday.slice(0, 10));
     const handleSubmit = (e)=>{
         e.preventDefault();
+        // Client-side validation
+        if (!username || !email) {
+            (0, _reactToastify.toast).error("Username and email cannot be blank. Please fill out all required fields.");
+            return; // Stop the submission if validation fails
+        }
         const [year, month, day] = birthday.split("-");
         const formattedBirthday = `${day}/${month}/${year}`;
         // Prepare the update data, conditionally including the password
@@ -43857,16 +43862,18 @@ const UpdateUser = ({ user, token, onUpdate })=>{
         }).then(async (response)=>{
             if (!response.ok) {
                 const errorText = await response.text();
+                let userFriendlyMessage = "An error occurred while updating your profile.";
                 if (response.status === 403) {
-                    // Handle permission issues
+                    userFriendlyMessage = "You do not have permission to update this profile. Please log in again.";
                     handlePermissionError();
-                    (0, _reactToastify.toast).error("Permission denied or unauthorized. Please log in again.");
                 } else if (response.status === 401) {
-                    // Handle unauthorized errors, such as expired tokens
+                    userFriendlyMessage = "Your session has expired. Please log in again.";
                     handlePermissionError();
-                    (0, _reactToastify.toast).error(`Error ${response.status}: ${errorText}`);
-                }
-                throw new Error(`Error ${response.status}: ${errorText}`);
+                } else if (response.status === 400) userFriendlyMessage = "There was an issue with the data you provided. Please check your inputs.";
+                else if (response.status === 500) userFriendlyMessage = "Our servers are currently down. Please try again later.";
+                else userFriendlyMessage = `Unexpected error: Please check your inputs.`;
+                (0, _reactToastify.toast).error(userFriendlyMessage);
+                throw new Error(userFriendlyMessage);
             }
             return response.json();
         }).then((updatedUser)=>{
@@ -43875,7 +43882,6 @@ const UpdateUser = ({ user, token, onUpdate })=>{
             (0, _reactToastify.toast).success("Profile updated successfully!");
         }).catch((error)=>{
             console.error("Error updating user:", error.message);
-            (0, _reactToastify.toast).error(`Error updating user: ${error.message}`);
         });
     };
     // Function to handle permission errors and token issues
@@ -43896,7 +43902,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Username"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 84,
+                        lineNumber: 95,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43905,13 +43911,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setUsername(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 85,
+                        lineNumber: 96,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 83,
+                lineNumber: 94,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43921,7 +43927,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Email"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 92,
+                        lineNumber: 103,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43930,13 +43936,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setEmail(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 93,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 91,
+                lineNumber: 102,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43946,7 +43952,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Password"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 100,
+                        lineNumber: 111,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43955,13 +43961,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setPassword(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 101,
+                        lineNumber: 112,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 99,
+                lineNumber: 110,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43971,7 +43977,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Birthday"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 108,
+                        lineNumber: 119,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43980,13 +43986,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setBirthday(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 109,
+                        lineNumber: 120,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 107,
+                lineNumber: 118,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -43996,13 +44002,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                 children: "Update"
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 115,
+                lineNumber: 126,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/update-user.jsx",
-        lineNumber: 82,
+        lineNumber: 93,
         columnNumber: 5
     }, undefined);
 };

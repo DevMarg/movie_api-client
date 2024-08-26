@@ -11,6 +11,12 @@ const UpdateUser = ({ user, token, onUpdate }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Client-side validation
+    if (!username || !email) {
+      toast.error("Username and email cannot be blank. Please fill out all required fields.");
+      return; // Stop the submission if validation fails
+    }
+
     const [year, month, day] = birthday.split("-");
     const formattedBirthday = `${day}/${month}/${year}`;
 
@@ -42,18 +48,24 @@ const UpdateUser = ({ user, token, onUpdate }) => {
       .then(async (response) => {
         if (!response.ok) {
           const errorText = await response.text();
+          let userFriendlyMessage = "An error occurred while updating your profile.";
+
           if (response.status === 403) {
-            // Handle permission issues
+            userFriendlyMessage = "You do not have permission to update this profile. Please log in again.";
             handlePermissionError();
-            toast.error(
-              "Permission denied or unauthorized. Please log in again."
-            );
           } else if (response.status === 401) {
-            // Handle unauthorized errors, such as expired tokens
+            userFriendlyMessage = "Your session has expired. Please log in again.";
             handlePermissionError();
-            toast.error(`Error ${response.status}: ${errorText}`);
+          } else if (response.status === 400) {
+            userFriendlyMessage = "There was an issue with the data you provided. Please check your inputs.";
+          } else if (response.status === 500) {
+            userFriendlyMessage = "Our servers are currently down. Please try again later.";
+          } else {
+            userFriendlyMessage = `Unexpected error: Please check your inputs.`;
           }
-          throw new Error(`Error ${response.status}: ${errorText}`);
+
+          toast.error(userFriendlyMessage);
+          throw new Error(userFriendlyMessage);
         }
         return response.json();
       })
@@ -63,8 +75,7 @@ const UpdateUser = ({ user, token, onUpdate }) => {
         toast.success("Profile updated successfully!");
       })
       .catch((error) => {
-        console.error("Error updating user:", error.message);
-        toast.error(`Error updating user: ${error.message}`);
+        console.error("Error updating user:", error.message);        
       });
   };
 
