@@ -5,7 +5,7 @@
 .movie-card {
   width: 100%;
   max-width: 300px;
-  max-height: 600px;
+  max-height: 650px;
   margin: auto;
 }
 
@@ -26,16 +26,7 @@
   height: 120px;
 }
 
-.movie-carousel {
-  flex-direction: row;
-  display: flex;
-}
-
-.no-indicators .carousel-indicators {
-  display: none;
-}
-
-.carousel-item {
+.movie-carousel, .carousel-item {
   flex-direction: row;
   display: flex;
 }
