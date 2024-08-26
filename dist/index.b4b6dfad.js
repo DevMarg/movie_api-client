@@ -43838,12 +43838,14 @@ const UpdateUser = ({ user, token, onUpdate })=>{
         e.preventDefault();
         const [year, month, day] = birthday.split("-");
         const formattedBirthday = `${day}/${month}/${year}`;
-        console.log("Submitting update with data:", {
+        // Prepare the update data, conditionally including the password
+        const updateData = {
             Username: username,
             Email: email,
-            Password: password,
             Birthday: formattedBirthday
-        });
+        };
+        if (password) updateData.Password = password; // Only include the password if it has been provided
+        console.log("Submitting update with data:", updateData);
         // Update user info logic
         fetch(`https://movie-spot-a025d6d649af.herokuapp.com/users/${user.Username}`, {
             method: "PUT",
@@ -43851,12 +43853,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                Username: username,
-                Email: email,
-                Password: password,
-                Birthday: formattedBirthday
-            })
+            body: JSON.stringify(updateData)
         }).then(async (response)=>{
             if (!response.ok) {
                 const errorText = await response.text();
@@ -43899,7 +43896,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Username"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 78,
+                        lineNumber: 84,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43908,13 +43905,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setUsername(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 79,
+                        lineNumber: 85,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 77,
+                lineNumber: 83,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43924,7 +43921,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Email"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 86,
+                        lineNumber: 92,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43933,13 +43930,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setEmail(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 87,
+                        lineNumber: 93,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 85,
+                lineNumber: 91,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43949,7 +43946,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Password"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 94,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43958,13 +43955,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setPassword(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 95,
+                        lineNumber: 101,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 93,
+                lineNumber: 99,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43974,7 +43971,7 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         children: "Birthday"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 102,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -43983,13 +43980,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                         onChange: (e)=>setBirthday(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 103,
+                        lineNumber: 109,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 101,
+                lineNumber: 107,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -43999,13 +43996,13 @@ const UpdateUser = ({ user, token, onUpdate })=>{
                 children: "Update"
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 109,
+                lineNumber: 115,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/update-user.jsx",
-        lineNumber: 76,
+        lineNumber: 82,
         columnNumber: 5
     }, undefined);
 };
@@ -44794,9 +44791,7 @@ const DeleteAccount = ({ user, token, onDelete })=>{
                 localStorage.removeItem("user");
                 localStorage.removeItem("token");
                 onDelete();
-                setTimeout(()=>{
-                    if (window.confirm("Your account has been deleted. Click OK to go back to the login page.")) window.location.href = "/login";
-                }, 5000);
+                window.location.href = "/login";
             } else return response.text().then((text)=>{
                 (0, _reactToastify.toast).error("Error deleting account: " + text);
             });
@@ -44811,7 +44806,7 @@ const DeleteAccount = ({ user, token, onDelete })=>{
         children: "Delete Account"
     }, void 0, false, {
         fileName: "src/components/profile-view/delete-account.jsx",
-        lineNumber: 41,
+        lineNumber: 37,
         columnNumber: 5
     }, undefined);
 };

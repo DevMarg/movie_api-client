@@ -18,11 +18,7 @@ const DeleteAccount = ({ user, token, onDelete }) => {
             localStorage.removeItem('token');
             onDelete();
             
-            setTimeout(() => {
-              if (window.confirm('Your account has been deleted. Click OK to go back to the login page.')) {
-                window.location.href = '/login'; 
-              }
-            }, 5000)
+            window.location.href = '/login'; 
             
           } else {
             return response.text().then(text => {
