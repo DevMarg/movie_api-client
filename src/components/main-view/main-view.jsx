@@ -127,27 +127,9 @@ export const MainView = () => {
   };
 
   const handleUpdate = (updatedUser) => {
-    fetch(`https://movie-spot-a025d6d649af.herokuapp.com/users/${user._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(updatedUser),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to update user");
-        }
-        return response.json();
-      })
-      .then((updatedUser) => {
-        setUser(updatedUser);
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-      })
-      .catch((error) => {
-        console.error("Error updating user:", error);
-      });
+    console.log("User data received from update-user.jsx:", updatedUser);
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
   };
 
   const handleDelete = () => {
