@@ -27531,7 +27531,6 @@ const MainView = ()=>{
         });
     };
     const handleUpdate = (updatedUser)=>{
-        console.log("User data received from update-user.jsx:", updatedUser);
         setUser(updatedUser);
         localStorage.setItem("user", JSON.stringify(updatedUser));
     };
