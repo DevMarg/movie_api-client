@@ -249,7 +249,7 @@ export const MainView = () => {
                   {!user ? (
                     <Navigate to="/login" replace />
                   ) : movies.length === 0 ? (
-                    <Col>The list is empty</Col>
+                    <Col>Loading</Col>
                   ) : (
                     <Col md={8}>
                       <MovieView
@@ -304,7 +304,7 @@ export const MainView = () => {
                   {!user ? (
                     <Navigate to="/login" replace />
                   ) : movies.length === 0 ? (
-                    <Col>The list is empty</Col>
+                    <Col>Loading</Col>
                   ) : (
                     <Col md={12}>
                       <Carousel className="movie-carousel no-indicators" interval={null}>
