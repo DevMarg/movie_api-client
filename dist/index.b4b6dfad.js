@@ -43121,7 +43121,11 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _topNavbarScss = require("./top-navbar.scss");
+var _s = $RefreshSig$();
 const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
+    _s();
+    const location = (0, _reactRouterDom.useLocation)();
+    const isMoviesPage = location.pathname === "/";
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         bg: "dark",
         variant: "dark",
@@ -43135,14 +43139,14 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                     children: "MovieSpot"
                 }, void 0, false, {
                     fileName: "src/components/top-navbar/top-navbar.jsx",
-                    lineNumber: 9,
+                    lineNumber: 14,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/top-navbar/top-navbar.jsx",
-                    lineNumber: 12,
+                    lineNumber: 17,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -43157,7 +43161,7 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "src/components/top-navbar/top-navbar.jsx",
-                                    lineNumber: 15,
+                                    lineNumber: 20,
                                     columnNumber: 11
                                 }, undefined),
                                 user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -43168,7 +43172,7 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                                             children: "Profile"
                                         }, void 0, false, {
                                             fileName: "src/components/top-navbar/top-navbar.jsx",
-                                            lineNumber: 18,
+                                            lineNumber: 23,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -43178,7 +43182,7 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                                             children: "Logout"
                                         }, void 0, false, {
                                             fileName: "src/components/top-navbar/top-navbar.jsx",
-                                            lineNumber: 19,
+                                            lineNumber: 24,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
@@ -43190,7 +43194,7 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                                             children: "Login"
                                         }, void 0, false, {
                                             fileName: "src/components/top-navbar/top-navbar.jsx",
-                                            lineNumber: 23,
+                                            lineNumber: 28,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -43199,7 +43203,7 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                                             children: "Signup"
                                         }, void 0, false, {
                                             fileName: "src/components/top-navbar/top-navbar.jsx",
-                                            lineNumber: 24,
+                                            lineNumber: 29,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
@@ -43207,10 +43211,10 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                             ]
                         }, void 0, true, {
                             fileName: "src/components/top-navbar/top-navbar.jsx",
-                            lineNumber: 14,
+                            lineNumber: 19,
                             columnNumber: 9
                         }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                        user && isMoviesPage && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
                             className: "d-flex ml-auto ms-auto",
                             children: [
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.FormControl), {
@@ -43224,41 +43228,46 @@ const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery })=>{
                                     }
                                 }, void 0, false, {
                                     fileName: "src/components/top-navbar/top-navbar.jsx",
-                                    lineNumber: 30,
-                                    columnNumber: 11
+                                    lineNumber: 36,
+                                    columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                     variant: "outline-light",
                                     children: "Search"
                                 }, void 0, false, {
                                     fileName: "src/components/top-navbar/top-navbar.jsx",
-                                    lineNumber: 40,
+                                    lineNumber: 46,
                                     columnNumber: 11
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/top-navbar/top-navbar.jsx",
-                            lineNumber: 29,
-                            columnNumber: 9
+                            lineNumber: 35,
+                            columnNumber: 13
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/top-navbar/top-navbar.jsx",
-                    lineNumber: 13,
+                    lineNumber: 18,
                     columnNumber: 7
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/top-navbar/top-navbar.jsx",
-            lineNumber: 8,
+            lineNumber: 13,
             columnNumber: 5
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/top-navbar/top-navbar.jsx",
-        lineNumber: 7,
+        lineNumber: 12,
         columnNumber: 5
     }, undefined);
 };
+_s(TopNavbar, "pkHmaVRPskBaU4tMJuJJpV42k1I=", false, function() {
+    return [
+        (0, _reactRouterDom.useLocation)
+    ];
+});
 _c = TopNavbar;
 var _c;
 $RefreshReg$(_c, "TopNavbar");

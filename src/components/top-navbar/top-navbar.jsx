@@ -1,8 +1,13 @@
 import { Navbar, Nav, Container, Button, Form, FormControl } from "react-bootstrap";
-import { Link } from "react-router-dom"; 
+import { Link, useLocation, useLocation } from "react-router-dom"; 
 import "./top-navbar.scss"
 
 export const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery }) => {
+
+  const location = useLocation();
+
+  const isMoviesPage = location.pathname === "/";
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
     <Container>
@@ -25,20 +30,22 @@ export const TopNavbar = ({ user, onLogout, searchQuery, setSearchQuery }) => {
             </>
           )}
         </Nav>
-        {/* Search Form */}
-        <Form className="d-flex ml-auto ms-auto">
-          <FormControl
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            value={searchQuery}
-            onChange={(e) => {
-              console.log("Search query changed:", e.target.value);
-              setSearchQuery(e.target.value);
-            }}
-          />
+        {/* Conditionally render search Form */}
+        {user && isMoviesPage && (
+            <Form className="d-flex ml-auto ms-auto">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                value={searchQuery}
+                onChange={(e) => {
+                  console.log("Search query changed:", e.target.value);
+                  setSearchQuery(e.target.value);
+                }}
+              />
           <Button variant="outline-light">Search</Button>
         </Form>
+        )}
       </Navbar.Collapse>
     </Container>
   </Navbar>
