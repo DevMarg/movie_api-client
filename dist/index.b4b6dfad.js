@@ -27523,7 +27523,7 @@ const MainView = ()=>{
                         isFavorite: method === "PATCH"
                     } : movie);
                 setMovies(updatedMovies);
-                (0, _reactToastify.toast).success("Favorite status updated successfully");
+                (0, _reactToastify.toast).success("Favorites updated!");
             } else throw new Error("Failed to update favorite movies");
         }).catch((error)=>{
             console.error("Error updating favorite movies:", error);
@@ -43733,7 +43733,7 @@ const ProfileView = ({ user, token, movies, onUpdate, onDelete })=>{
                     ];
                     else return prevFavorites.filter((movie)=>movie.id !== movieId);
                 });
-                (0, _reactToastify.toast).success("Favorite status updated successfully");
+                (0, _reactToastify.toast).success("Favorites updated!");
             } else throw new Error("Failed to update favorite movies");
         }).catch((error)=>{
             console.error("Error updating favorite movies:", error);

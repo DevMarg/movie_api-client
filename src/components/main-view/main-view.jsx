@@ -115,7 +115,7 @@ export const MainView = () => {
           );
           setMovies(updatedMovies);
 
-          toast.success("Favorite status updated successfully");
+          toast.success("Favorites updated!");
         } else {
           throw new Error("Failed to update favorite movies");
         }
@@ -333,9 +333,7 @@ export const MainView = () => {
                                 >
                                   <MovieCard
                                     movie={movie}
-                                    isFavorite={user.FavoriteMovies.includes(
-                                      movie.id
-                                    )}
+                                    isFavorite={user.FavoriteMovies.includes(movie.id)}
                                     onFavoriteToggle={() =>
                                       handleFavoriteToggle(movie.id)
                                     }

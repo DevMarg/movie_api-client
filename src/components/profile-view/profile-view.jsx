@@ -52,7 +52,7 @@ const ProfileView = ({ user, token, movies, onUpdate, onDelete }) => {
               return prevFavorites.filter(movie => movie.id !== movieId);
             }
           });
-          toast.success('Favorite status updated successfully');
+          toast.success('Favorites updated!');
         } else {
           throw new Error('Failed to update favorite movies');
         }
