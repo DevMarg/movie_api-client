@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
@@ -11,6 +12,8 @@ export const SignupView = () => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
     const [errorMessages, setErrorMessages] = useState([]);
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
 
@@ -37,7 +40,7 @@ export const SignupView = () => {
         }).then((response) => {
             if (response.ok) {
                 alert("Signup successful");
-                window.location.reload();
+                navigate("/login");
             } else {
                 return response.json().then((data) =>{
                     setErrorMessages(data.error.map(err => err.msg));
