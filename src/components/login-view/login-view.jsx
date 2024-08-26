@@ -2,11 +2,15 @@ import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+
 
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessages, setErrorMessages] = useState([]);
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,16 +35,23 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
         } else {
-          alert("User doesn't exist");
+          setErrorMessages([data.info.message || "Login failed"]);
         }
       })
       .catch((e) => {
-        alert("Something went wrong");
+        alert("Something went wrong. Please try again later.");
       });
   };
 
   return (
-    
+    <>
+      {errorMessages.length > 0 && (
+        <Alert variant="danger">
+          {errorMessages.map((msg, index) => (
+            <div key={index}>{msg}</div>
+          ))}
+        </Alert>
+      )}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formUsername">
           <Form.Label>Username:</Form.Label>
@@ -68,6 +79,6 @@ export const LoginView = ({ onLoggedIn }) => {
           Submit
         </Button>
       </Form>
-    
+    </> 
   );
 };
