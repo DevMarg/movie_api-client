@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 
 export const SignupView = () => {
@@ -9,6 +10,7 @@ export const SignupView = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
+    const [errorMessages, setErrorMessages] = useState([]);
 
     const handleSubmit = (event) => {
 
@@ -38,7 +40,7 @@ export const SignupView = () => {
                 window.location.reload();
             } else {
                 return response.json().then((data) =>{
-                    alert("Signup failed:" + data.error.map(err => err.msg).join(', '));
+                    setErrorMessages(data.error.map(err => err.msg));
                 })
             }
         })
@@ -51,6 +53,13 @@ export const SignupView = () => {
 
         
             <Form onSubmit={handleSubmit}>
+            {errorMessages.length > 0 && (
+                <Alert variant="danger">
+                    {errorMessages.map((msg, index) => (
+                        <div key={index}>{msg}</div>
+                    ))}
+                </Alert>
+            )}
             <Form.Group className="mb-3" controlId="formUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
